@@ -32,7 +32,7 @@ def browser(request):
         browser = webdriver.Opera(options=options)
     else:
         raise pytest.UsageError('--browser_name should be chrome or firefox or opera')
-    
+
     yield browser
     print('\nQuit browser ...')
     browser.quit()
