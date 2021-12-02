@@ -11,7 +11,7 @@ def pytest_addoption(parser):
 @pytest.fixture(scope='function')
 def browser(request):
     language = request.config.getoption('language')
-    print('\nInit language on', language)
+    print('\nInit language on ...', language)
 
     browser_name = request.config.getoption('browser_name')
     browser = None
