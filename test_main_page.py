@@ -1,5 +1,3 @@
-# pytest -v -s -m new --tb=line --browser_name=chrome --language=en test_main_page.py
-
 import pytest
 from pages.main_page import MainPage
 from pages.login_page import LoginPage

@@ -1,5 +1,3 @@
-# pytest -v -s -m new --tb=line --browser_name=chrome --language=en test_product_page.py
-
 import pytest
 from pages.product_page import ProductPage
 from pages.basket_page import BasketPage
@@ -25,6 +23,7 @@ class TestGuestAddToBasketFromProductPage():
         page.should_be_basket_button()
         
 
+    @pytest.mark.need_review
     @pytest.mark.parametrize('link', [f'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer{offer}' for offer in range(7)] +
                                     [pytest.param('fhttp://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer7', marks=pytest.mark.xfail(reason='Bad link'))] +
                                     [f'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer{offer}' for offer in range(8, 10)])
@@ -73,7 +72,6 @@ class TestUserAddToBasketFromProductPage():
 
         page.should_be_authorized_user()
         self.link = 'http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209/?promo=newYear'
-        #print(self.link)
 
 
     @pytest.fixture(scope="function", autouse=True)
@@ -87,6 +85,7 @@ class TestUserAddToBasketFromProductPage():
         page.should_not_be_success_message()
 
 
+    @pytest.mark.need_review
     def test_user_can_add_product_to_basket(self, browser):
         page = ProductPage(browser, self.link)
         page.open()
@@ -112,6 +111,7 @@ class TestGuestLoginFromProductPage():
         page.should_be_login_link()
 
 
+    @pytest.mark.need_review
     def test_guest_can_go_to_login_page_from_product_page(self, browser):
         page = ProductPage(browser, self.link)
         page.open()
@@ -130,6 +130,7 @@ class TestGuestEmptyBasketFromProductPage():
         pass
 
 
+    @pytest.mark.need_review
     def test_guest_cant_see_product_in_basket_opened_from_product_page(self, browser):
         page = ProductPage(browser, self.link)
         page.open()
