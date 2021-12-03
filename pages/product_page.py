@@ -11,10 +11,17 @@ class ProductPage(BasePage):
         busket_button.click()
         self.solve_quiz_and_get_code()
 
-    def product_has_been_added_to_basket(self):
+    def get_product_name_and_price(self):
         product_name = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME)
         product_price = self.browser.find_element(*ProductPageLocators.PRODUCT_PRICE)
-        product_added_name = self.browser.find_element(*ProductPageLocators.PRODUCT_ADDED_NAME)
-        product_added_price = self.browser.find_element(*ProductPageLocators.PRODUCT_ADDED_PRICE)
-        product_name = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME)
-        assert (product_name.text == product_added_name.text) and (product_price.text == product_added_price.text), 'The product has not been added to the basket'
+        return {'name': product_name.text, 'price': product_price.text}
+
+    def get_added_product_name_and_price(self):
+        product_name = self.browser.find_element(*ProductPageLocators.PRODUCT_ADDED_NAME)
+        product_price = self.browser.find_element(*ProductPageLocators.PRODUCT_ADDED_PRICE)
+        return {'name': product_name.text, 'price': product_price.text}
+
+    def product_has_been_added_to_basket(self):
+        product = self.get_product_name_and_price()
+        product_added = self.get_added_product_name_and_price()
+        assert (product['name'] == product_added['name']) and (product['price'] == product_added['price']), 'The product has not been added to the basket'
