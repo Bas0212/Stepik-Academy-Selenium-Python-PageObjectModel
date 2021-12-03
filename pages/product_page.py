@@ -22,6 +22,7 @@ class ProductPage(BasePage):
         return {'name': product_name.text, 'price': product_price.text}
 
     def product_has_been_added_to_basket(self):
+        self.browser.delete_all_cookies()
         product = self.get_product_name_and_price()
         product_added = self.get_added_product_name_and_price()
         assert (product['name'] == product_added['name']) and (product['price'] == product_added['price']), 'The product has not been added to the basket'
