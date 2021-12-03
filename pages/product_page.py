@@ -26,3 +26,9 @@ class ProductPage(BasePage):
         product = self.get_product_name_and_price()
         product_added = self.get_added_product_name_and_price()
         assert (product['name'] == product_added['name']) and (product['price'] == product_added['price']), 'The product has not been added to the basket'
+
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE), 'Success message is presented, but should not be'
+        
+    def should_be_disappeared_success_message(self):
+        assert self.is_disappeared(*ProductPageLocators.SUCCESS_MESSAGE), 'Success message is presented, but should be disappeared'
