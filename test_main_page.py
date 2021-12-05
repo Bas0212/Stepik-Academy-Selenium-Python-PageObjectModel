@@ -1,4 +1,5 @@
 import pytest
+from pages.locators import MainPageLocators
 from pages.main_page import MainPage
 from pages.login_page import LoginPage
 from pages.basket_page import BasketPage
@@ -8,7 +9,7 @@ from pages.basket_page import BasketPage
 class TestGuestLoginFromMainPage():
     @pytest.fixture(scope="function", autouse=True)
     def setup(self):
-        self.link = 'http://selenium1py.pythonanywhere.com'
+        self.link = MainPageLocators.URL_MAIN
 
 
     @pytest.fixture(scope="function", autouse=True)
@@ -34,7 +35,7 @@ class TestGuestLoginFromMainPage():
 class TestGuestEmptyBasketFromMainPage():
     @pytest.fixture(scope="function", autouse=True)
     def setup(self):
-        self.link = 'http://selenium1py.pythonanywhere.com'
+        self.link = MainPageLocators.URL_MAIN
 
 
     @pytest.fixture(scope="function", autouse=True)

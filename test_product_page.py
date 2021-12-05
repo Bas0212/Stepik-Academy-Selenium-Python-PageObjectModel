@@ -1,15 +1,16 @@
 import pytest
+from pages.locators import LoginPageLocators, ProductPageLocators
 from pages.product_page import ProductPage
 from pages.basket_page import BasketPage
 from pages.login_page import LoginPage
-import time
+import time     # import Faker
 
 
 @pytest.mark.guest_add_to_basket
 class TestGuestAddToBasketFromProductPage():
     @pytest.fixture(scope="function", autouse=True)
     def setup(self):
-        self.link = 'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019' # Независимость от данных (https://stepik.org/lesson/201964/step/3?auth=login&unit=176022)
+        self.link = ProductPageLocators.URL_PRODUCT_CODERS_AT_WORK
 
 
     @pytest.fixture(scope="function", autouse=True)
@@ -25,7 +26,7 @@ class TestGuestAddToBasketFromProductPage():
 
     @pytest.mark.need_review
     @pytest.mark.parametrize('link', [f'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer{offer}' for offer in range(7)] +
-                                    [pytest.param('fhttp://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer7', marks=pytest.mark.xfail(reason='Bad link'))] +
+                                    [pytest.param(f'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer7', marks=pytest.mark.xfail(reason='Bad link'))] +
                                     [f'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer{offer}' for offer in range(8, 10)])
     def test_guest_can_add_product_to_basket(self, browser, link):
         page = ProductPage(browser, link)
@@ -37,7 +38,7 @@ class TestGuestAddToBasketFromProductPage():
     @pytest.mark.skip
     def test_guest_cant_see_success_message_after_adding_product_to_basket(self, browser):
         link = self.link
-        link = 'http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209/?promo=newYear'
+        link = ProductPageLocators.URL_PRODUCT_SHELLCODERS_HANDBOOK
         page = ProductPage(browser, link)
         page.open()
         page.add_product_to_basket()
@@ -46,7 +47,7 @@ class TestGuestAddToBasketFromProductPage():
 
     def test_guest_cant_see_success_message(self, browser):
         link = self.link
-        link = 'http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209/?promo=newYear'
+        link = ProductPageLocators.URL_PRODUCT_SHELLCODERS_HANDBOOK
         page = ProductPage(browser, link)
         page.open()
         page.should_not_be_success_message()
@@ -55,7 +56,7 @@ class TestGuestAddToBasketFromProductPage():
     @pytest.mark.skip
     def test_message_disappeared_after_adding_product_to_basket(self, browser):
         link = self.link
-        link = 'http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209/?promo=newYear'
+        link = ProductPageLocators.URL_PRODUCT_SHELLCODERS_HANDBOOK
         page = ProductPage(browser, link)
         page.open()
         page.add_product_to_basket()
@@ -66,12 +67,16 @@ class TestGuestAddToBasketFromProductPage():
 class TestUserAddToBasketFromProductPage():
     @pytest.fixture(scope="function", autouse=True)
     def setup(self, browser):
-        page = LoginPage(browser=browser, url='http://selenium1py.pythonanywhere.com/accounts/login/')
+        page = LoginPage(browser, LoginPageLocators.URL_LOGIN)
         page.open()
-        page.register_new_user(str(time.time()) + '@fakemail.org', 'Qwerty_12345')
+
+        # fake = Faker()
+        email = str(time.time()) + '@fakemail.org'  # fake.email()
+        password = 'Qwerty_12345'                   # fake.password()
+        page.register_new_user(email, password)
 
         page.should_be_authorized_user()
-        self.link = 'http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209/?promo=newYear'
+        self.link = ProductPageLocators.URL_PRODUCT_SHELLCODERS_HANDBOOK
 
 
     @pytest.fixture(scope="function", autouse=True)
@@ -97,7 +102,7 @@ class TestUserAddToBasketFromProductPage():
 class TestGuestLoginFromProductPage():
     @pytest.fixture(scope="function", autouse=True)
     def setup(self):
-        self.link = 'http://selenium1py.pythonanywhere.com/catalogue/the-city-and-the-stars_95/'
+        self.link = ProductPageLocators.URL_CITY_AND_STARTS
 
 
     @pytest.fixture(scope="function", autouse=True)
@@ -122,7 +127,7 @@ class TestGuestLoginFromProductPage():
 class TestGuestEmptyBasketFromProductPage():
     @pytest.fixture(scope="function", autouse=True)
     def setup(self):
-        self.link = 'http://selenium1py.pythonanywhere.com/catalogue/the-city-and-the-stars_95/'
+        self.link = ProductPageLocators.URL_CITY_AND_STARTS
 
 
     @pytest.fixture(scope="function", autouse=True)

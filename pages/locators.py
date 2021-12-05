@@ -10,6 +10,7 @@ class BasePageLocators():
     
 class MainPageLocators():
     LOGIN_LINK = (By.CSS_SELECTOR, '#login_link')
+    URL_MAIN = 'http://selenium1py.pythonanywhere.com/'
 
 
 class LoginPageLocators():
@@ -18,9 +19,10 @@ class LoginPageLocators():
     REGISTER_EMAIL = (By.CSS_SELECTOR, '#id_registration-email')
     REGISTER_PASSWORD = (By.CSS_SELECTOR, '#id_registration-password1')
     REGISTER_CONFIRM_PASSWORD = (By.CSS_SELECTOR, '#id_registration-password2')
-    REGISTER_BUTTON = (By.CSS_SELECTOR, 'button[name="registration_submit"]')
+    REGISTER_BUTTON = (By.NAME, 'registration_submit')
     REGISTER_ALERT = (By.CSS_SELECTOR, 'div.alert-danger')
     REGISTER_OK = (By.CSS_SELECTOR, 'i.icon-ok-sign')
+    URL_LOGIN = 'http://selenium1py.pythonanywhere.com/accounts/login/'
 
 
 class ProductPageLocators():
@@ -30,6 +32,9 @@ class ProductPageLocators():
     PRODUCT_ADDED_NAME = (By.CSS_SELECTOR, 'div.alert-success strong')
     PRODUCT_ADDED_PRICE = (By.CSS_SELECTOR, 'div.alert-info p strong')
     SUCCESS_MESSAGE = (By.CSS_SELECTOR, 'div.alert-success')
+    URL_CITY_AND_STARTS = 'http://selenium1py.pythonanywhere.com/catalogue/the-city-and-the-stars_95/'
+    URL_PRODUCT_CODERS_AT_WORK = 'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019'
+    URL_PRODUCT_SHELLCODERS_HANDBOOK = 'http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209/?promo=newYear'
 
 
 class BasketPageLocators():
